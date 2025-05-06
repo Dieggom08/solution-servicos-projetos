@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Relatório de Atrasos</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    {% if logo_url %}
+        <img src="{{ logo_url }}" alt="Logo" class="logo">
+    {% endif %}
+    <h1>Relatório de Atrasos</h1>
+    <p><strong>Período:</strong> {{ start_date }} a {{ end_date }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Funcionário</th>
+                <th>Data</th>
+                <th>Hora Chegada</th>
+                <th>Atraso (min)</th>
+                <th>Horário Esperado</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for record in records %}
+            <tr>
+                <td>{{ record.employee_name }}</td>
+                <td>{{ record.date }}</td>
+                <td>{{ record.arrival_time }}</td>
+                <td>{{ record.lateness_minutes }}</td>
+                <td>{{ record.expected_arrival_time }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="5" style="text-align: center;">Nenhum atraso registrado no período.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+

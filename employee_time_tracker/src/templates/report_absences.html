@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Relatório de Ausências</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    {% if logo_url %}
+        <img src="{{ logo_url }}" alt="Logo" class="logo">
+    {% endif %}
+    <h1>Relatório de Ausências</h1>
+    <p><strong>Período:</strong> {{ start_date }} a {{ end_date }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Funcionário</th>
+                <th>Data Ausência</th>
+                <th>Justificativa (se houver)</th>
+            </tr>
+        </thead>
+        <tbody>
+            {# Logic to determine absences needs to be implemented in the backend #}
+            {# This template assumes `absences` is a list of dicts like: #}
+            {# { "employee_name": "Nome", "absence_date": "YYYY-MM-DD", "justification": "Texto" } #}
+            {% for absence in absences %}
+            <tr>
+                <td>{{ absence.employee_name }}</td>
+                <td>{{ absence.absence_date }}</td>
+                <td>{{ absence.justification or 'N/A' }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="3" style="text-align: center;">Nenhuma ausência registrada no período.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+</body>
+</html>
+

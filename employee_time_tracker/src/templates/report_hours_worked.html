@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Relatório de Horas Trabalhadas</title>
+    <meta charset="UTF-8">
+</head>
+<body>
+    {% if logo_url %}
+        <img src="{{ logo_url }}" alt="Logo" class="logo">
+    {% endif %}
+    <h1>Relatório de Horas Trabalhadas</h1>
+    <p><strong>Funcionário:</strong> {{ employee_name }}</p>
+    <p><strong>Período:</strong> {{ start_date }} a {{ end_date }}</p>
+    <table>
+        <thead>
+            <tr>
+                <th>Semana</th>
+                <th>Horas Trabalhadas</th>
+                <th>Horas Extras (Aprox.)</th>
+                <th>Horas Noturnas</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% for week_summary in weekly_summaries %}
+            <tr>
+                <td>{{ week_summary.week_start }} - {{ week_summary.week_end }}</td>
+                <td>{{ "%.2f" | format(week_summary.total_worked_seconds / 3600) }}</td>
+                <td>{{ "%.2f" | format(week_summary.total_overtime_seconds / 3600) }}</td>
+                <td>{{ "%.2f" | format(week_summary.total_night_shift_seconds / 3600) }}</td>
+            </tr>
+            {% else %}
+            <tr>
+                <td colspan="4" style="text-align: center;">Nenhum registro encontrado no período.</td>
+            </tr>
+            {% endfor %}
+        </tbody>
+    </table>
+    <p><em>Nota: O cálculo de horas extras é uma aproximação e pode precisar de ajustes conforme as regras de banco de horas.</em></p>
+</body>
+</html>
+
